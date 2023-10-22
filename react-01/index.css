@@ -1,0 +1,44 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid black;
+}
+.logo{
+    width: 135px;
+}
+.navItems > ul{
+    display: flex;
+}
+
+.navItems > ul > li{
+    padding: 10px;
+    margin: 10px;
+    list-style: none;
+}
+
+.search{
+    padding: 10px;
+}
+
+.card-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card{
+    margin: 5px;
+    padding: 5px;
+    width: 200px;
+    height: 340px;
+    background-color: #F5F5F5;
+    border-radius: 5%;
+}
+.card:hover{
+    box-shadow: 0 4px 8px 0 gray, 0 6px 20px 0 gray;
+    cursor: pointer;
+
+}
+.restro-img{
+    border-radius: 5%;
+    width: 100%;
+}
