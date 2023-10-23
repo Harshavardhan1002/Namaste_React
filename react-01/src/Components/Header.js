@@ -1,10 +1,15 @@
+import { useState } from "react";
 import { LOGO_URL } from "../utils/URLs";
 
 const Header = () => {
+  const[btnName, setBtnName] = useState("login")
+  function toggleBtn(){
+    btnName === "login" ? setBtnName("logout"): setBtnName("login")
+  }
     return (
       <div className="header">
         <div className="logoContainer">
-          <img className="logo" src= {LOGO_URL} alt=""/>
+          <img className="logo" src={LOGO_URL} alt="" />
         </div>
         <div className="navItems">
           <ul>
@@ -12,10 +17,15 @@ const Header = () => {
             <li>About Us</li>
             <li>Contact Us</li>
             <li>Cart</li>
+            <button
+              onClick={toggleBtn}
+            >
+              {btnName}
+            </button>
           </ul>
         </div>
       </div>
-    )
+    );
   }
 
 export default Header;

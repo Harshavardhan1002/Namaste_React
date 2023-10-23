@@ -12,7 +12,7 @@ const RestroCard = (props) => {
         cuisines,
         costForTwo,
         deliveryTime,
-      } = restroData?.data;
+      } = restroData?.info;
     
     return(
       <div className="card">
@@ -21,7 +21,7 @@ const RestroCard = (props) => {
         <h4>{cuisines.join(", ")}</h4>
         <h4>{avgRating}</h4>
         <h4>{deliveryTime}</h4>
-        <h4>Rs. {costForTwo/ 100} for Two</h4>
+        <h4>{costForTwo}</h4>
       </div>
     )
   }
