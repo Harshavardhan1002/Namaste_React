@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LOGO_URL } from "../utils/URLs";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const[btnName, setBtnName] = useState("login")
+  useEffect(() => {
+    console.log("header render")
+  })
   function toggleBtn(){
     btnName === "login" ? setBtnName("logout"): setBtnName("login")
   }
@@ -13,9 +17,9 @@ const Header = () => {
         </div>
         <div className="navItems">
           <ul>
-            <li>Home</li>
-            <li>About Us</li>
-            <li>Contact Us</li>
+            <li><Link to={"/"}>Home</Link></li>
+            <li><Link to={"/about"}>About Us</Link></li>
+            <li><Link to={"/contact"}>Contact Us</Link></li>
             <li>Cart</li>
             <button
               onClick={toggleBtn}
