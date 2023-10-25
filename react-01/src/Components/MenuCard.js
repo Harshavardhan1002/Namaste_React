@@ -15,6 +15,13 @@ const MenuCard = () => {
     useEffect(() => {
         setFirsttime(true)
         fetchData();
+
+        return ()=>{
+          setFirsttime(true)
+          setfilteredResInfo1(null)
+        setfilteredResInfo(null)
+        setfilteredResInfo2(null)
+        }
     },[])
     const fetchData = async () => {
       console.log("menu render")
