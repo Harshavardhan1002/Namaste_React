@@ -1,17 +1,20 @@
-import RestroCard from "./Restrocard";
+import RestroCard, { PromotedCard } from "./Restrocard";
 import resList from "../utils/mockData";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
   const [listOfRestruants, setListOfRestruants] = useState([]);
   const [filteredRestraunts, setfilteredRestraunts] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+
+  const RestroPromoted = PromotedCard(RestroCard);
   useEffect(() => {
-    console.log("render")
+    console.log("render");
     fetchData();
-  }, []);
+}, []);
   fetchData = async () => {
     const data = await fetch(
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
@@ -27,11 +30,16 @@ const Body = () => {
   if (listOfRestruants.length === 0) {
     return <Shimmer />;
   }
-  filteredRestraunts.forEach(res => {
-  console.log("data", res.info.id);
-
-  })
-
+  filteredRestraunts.forEach((res) => {
+    console.log("data", res.info.id);
+  });
+  // const onlineStatus = useOnlineStatus();
+  // if (onlineStatus === false)
+  //   return (
+  //     <h1>
+  //       Looks like you're offline!! Please check your internet connection;
+  //     </h1>
+  //   );
   return (
     <div className="body">
       <div className="filter">
@@ -71,7 +79,13 @@ const Body = () => {
       <div className="card-container">
         {filteredRestraunts.map((restaurant) => {
           return (
-            <Link to={"/restuarants/"+restaurant?.info?.id}><RestroCard key={restaurant?.info.id} restroData={restaurant} /></Link>
+            <Link to={"/restuarants/" + restaurant?.info?.id}>
+              {console.log("promoted",restaurant.info.avgRating)}
+              {
+                
+                restaurant.info.avgRating > 4.4 ? <RestroPromoted key={restaurant?.info.id} restroData={restaurant}/> : <RestroCard key={restaurant?.info.id} restroData={restaurant} />
+              }
+            </Link>
           );
         })}
       </div>
