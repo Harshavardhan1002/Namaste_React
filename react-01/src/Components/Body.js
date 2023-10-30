@@ -1,18 +1,19 @@
 import RestroCard, { PromotedCard } from "./Restrocard";
 import resList from "../utils/mockData";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   const [listOfRestruants, setListOfRestruants] = useState([]);
   const [filteredRestraunts, setfilteredRestraunts] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+  const {loggedInUser, setUsername} = useContext(UserContext)
 
   const RestroPromoted = PromotedCard(RestroCard);
   useEffect(() => {
-    console.log("render");
     fetchData();
 }, []);
   fetchData = async () => {
@@ -31,7 +32,6 @@ const Body = () => {
     return <Shimmer />;
   }
   filteredRestraunts.forEach((res) => {
-    console.log("data", res.info.id);
   });
   // const onlineStatus = useOnlineStatus();
   // if (onlineStatus === false)
@@ -59,7 +59,6 @@ const Body = () => {
                 .toLowerCase()
                 .includes(searchValue.toLowerCase());
             });
-            console.log(items);
             setfilteredRestraunts(items);
           }}
         >
@@ -75,12 +74,12 @@ const Body = () => {
         >
           Top restaurants
         </button>
+        <input className="border border-black" value={loggedInUser} onChange={(e) => {setUsername(e.target.value)}}/>
       </div>
       <div className="card-container">
         {filteredRestraunts.map((restaurant) => {
           return (
             <Link to={"/restuarants/" + restaurant?.info?.id}>
-              {console.log("promoted",restaurant.info.avgRating)}
               {
                 
                 restaurant.info.avgRating > 4.4 ? <RestroPromoted key={restaurant?.info.id} restroData={restaurant}/> : <RestroCard key={restaurant?.info.id} restroData={restaurant} />

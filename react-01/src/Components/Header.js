@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LOGO_URL } from "../utils/URLs";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Header = () => {
   const[btnName, setBtnName] = useState("login")
+
+  const {loggedInUser} = useContext(UserContext);
+
   useEffect(() => {
-    console.log("header render")
   })
   function toggleBtn(){
     btnName === "login" ? setBtnName("logout"): setBtnName("login")
@@ -24,6 +27,7 @@ const Header = () => {
             <li><Link to={"/about"}>About Us</Link></li>
             <li><Link to={"/contact"}>Contact Us</Link></li>
             <li>Cart</li>
+            <li>User Name: {loggedInUser}</li>
             <button
               onClick={toggleBtn}
             >
